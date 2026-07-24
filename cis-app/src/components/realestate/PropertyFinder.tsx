@@ -24,7 +24,7 @@ export default function PropertyFinder() {
   }
 
   return (
-    <div className="bg-card border border-line rounded-xl p-5">
+    <div className="bg-card border border-line rounded-xl shadow-sm p-5">
       <h3 className="font-semibold text-navy mb-1">Find properties in your town</h3>
       <p className="text-xs text-gray mb-4">
         Opens Zillow and Realtor.com search results for the location and filters below in new

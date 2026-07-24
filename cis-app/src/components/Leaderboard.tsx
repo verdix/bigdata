@@ -30,14 +30,14 @@ export default function Leaderboard<T>({
 
   if (sorted.length === 0) {
     return (
-      <div className="bg-card border border-line rounded-xl p-6 text-center text-gray text-sm">
+      <div className="bg-card border border-line rounded-xl shadow-sm p-6 text-center text-gray text-sm">
         No results to rank yet.
       </div>
     );
   }
 
   return (
-    <div className="bg-card border border-line rounded-xl overflow-hidden">
+    <div className="bg-card border border-line rounded-xl shadow-sm overflow-hidden">
       <h3 className="font-semibold text-navy px-5 pt-5 pb-3">{title}</h3>
       <div className="overflow-x-auto">
         <table className="w-full text-sm">

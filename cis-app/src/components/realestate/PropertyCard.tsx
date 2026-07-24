@@ -44,7 +44,7 @@ export default function PropertyCard({ property, onChange, onRemove }: PropertyC
   const metrics = computeMetrics(property);
 
   return (
-    <div className="bg-card border border-line rounded-xl p-5">
+    <div className="bg-card border border-line rounded-xl shadow-sm p-5">
       <div className="flex items-center justify-between mb-4 gap-3">
         <input
           className="font-semibold text-ink text-base border-b border-transparent hover:border-line focus:border-gold outline-none flex-1 min-w-0"

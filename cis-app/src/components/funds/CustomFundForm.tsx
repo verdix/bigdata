@@ -40,7 +40,7 @@ export default function CustomFundForm({ onAdd }: CustomFundFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-card border border-line rounded-xl p-5">
+    <form onSubmit={handleSubmit} className="bg-card border border-line rounded-xl shadow-sm p-5">
       <h3 className="font-semibold text-navy mb-4">Add a Custom Fund</h3>
       <div className="grid sm:grid-cols-4 gap-3 mb-3">
         <input

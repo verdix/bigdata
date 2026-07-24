@@ -21,7 +21,7 @@ export default function FundCard({ fund, onRemove }: FundCardProps) {
   const score = computeFundScore(fund);
 
   return (
-    <div className="bg-card border border-line rounded-xl p-5">
+    <div className="bg-card border border-line rounded-xl shadow-sm p-5">
       <div className="flex items-start justify-between mb-1">
         <div>
           <div className="font-bold text-ink">{fund.ticker}</div>

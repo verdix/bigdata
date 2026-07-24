@@ -6,7 +6,7 @@ export interface Factor {
 
 export default function FactorCard({ factors, title }: { factors: Factor[]; title: string }) {
   return (
-    <div className="bg-card border border-line rounded-xl p-5">
+    <div className="bg-card border border-line rounded-xl shadow-sm p-5">
       <h3 className="font-semibold text-navy mb-4">{title}</h3>
       <div className="grid sm:grid-cols-2 gap-4">
         {factors.map((f) => (
