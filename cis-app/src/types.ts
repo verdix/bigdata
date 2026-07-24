@@ -49,6 +49,7 @@ export interface FundInputs {
   risk: Level;
   frequency: 'Monthly' | 'Quarterly';
   custom?: boolean;
+  navErosionRisk?: boolean; // options-income strategy (e.g. covered calls) that can bleed NAV over time
 }
 
 export interface FundScore {

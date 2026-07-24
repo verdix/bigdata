@@ -15,7 +15,11 @@ export default function HowItWorksFunds() {
         <strong className="text-amber">Note:</strong> A high Income Score means strong,
         relatively durable cash flow for an income-focused investor — it is not a prediction of
         total return. High-yield strategies (like covered-call ETFs) can score well here for cash
-        flow while lagging a low-yield growth fund on long-term total return.
+        flow while lagging a low-yield growth fund on long-term total return. Covered-call funds
+        are also flagged for NAV erosion risk below — the option premium they collect doesn&apos;t
+        fully offset the upside they give away, which can erode share price over time even while
+        the distribution stays high. Use the &quot;Conservative / Retirement&quot; filter preset to
+        screen these out.
       </div>
     </div>
   );

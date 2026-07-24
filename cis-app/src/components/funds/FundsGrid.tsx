@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import type { FundInputs } from '../../types';
+import type { FundInputs, Level } from '../../types';
 import { FUND_DATA, CATEGORY_LABELS } from '../../data/fundData';
 import { computeFundScore } from '../../lib/scoring';
 import { fmtPct } from '../../lib/format';
@@ -11,6 +11,7 @@ import Leaderboard from '../Leaderboard';
 
 let nextId = 1;
 const BASE_FUNDS: FundInputs[] = FUND_DATA.map((f) => ({ ...f, id: `fund-${nextId++}` }));
+const RISK_ORDER: Record<Level, number> = { Low: 0, Medium: 1, High: 2 };
 
 const DEFAULT_FILTERS: FundFilters = {
   minYield: 0,
@@ -29,7 +30,7 @@ export default function FundsGrid() {
     return allFunds.filter((f) => {
       if (f.yield < filters.minYield) return false;
       if (f.expense > filters.maxExpense) return false;
-      if (filters.risk !== 'All' && f.risk !== filters.risk) return false;
+      if (filters.risk !== 'All' && RISK_ORDER[f.risk] > RISK_ORDER[filters.risk]) return false;
       if (filters.categories.length > 0 && !filters.categories.includes(f.category)) return false;
       return true;
     });

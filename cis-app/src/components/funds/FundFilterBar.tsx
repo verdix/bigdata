@@ -24,9 +24,25 @@ export default function FundFilterBar({ filters, onChange }: FundFilterBarProps)
     });
   }
 
+  function applyConservativePreset() {
+    onChange({
+      ...filters,
+      risk: 'Medium',
+      categories: ALL_CATEGORIES.filter((c) => c !== 'covered'),
+    });
+  }
+
   return (
     <div className="bg-card border border-line rounded-xl p-5">
-      <h3 className="font-semibold text-navy mb-4">Filter Funds</h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-navy">Filter Funds</h3>
+        <button
+          onClick={applyConservativePreset}
+          className="text-xs font-semibold text-navy border border-gold bg-gold/10 px-3 py-1.5 rounded-lg hover:bg-gold/20 cursor-pointer"
+        >
+          Conservative / Retirement preset
+        </button>
+      </div>
       <div className="grid sm:grid-cols-3 gap-4 mb-4">
         <label className="text-xs text-gray">
           Min Yield (%)
@@ -48,7 +64,7 @@ export default function FundFilterBar({ filters, onChange }: FundFilterBarProps)
           />
         </label>
         <label className="text-xs text-gray">
-          Risk Tolerance
+          Max Risk Tolerance
           <select
             className="mt-1 w-full border border-line rounded-lg px-2 py-1.5 text-sm text-ink"
             value={filters.risk}

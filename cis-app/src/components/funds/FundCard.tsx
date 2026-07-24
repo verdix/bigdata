@@ -58,6 +58,11 @@ export default function FundCard({ fund, onRemove }: FundCardProps) {
           <span className="text-gray">Risk</span>
           <span className="text-right font-medium">{fund.risk}</span>
         </div>
+        {fund.navErosionRisk && (
+          <p className="text-xs text-amber mt-3">
+            ⚠ Options-income strategy — high headline yield can come with NAV erosion over time.
+          </p>
+        )}
       </div>
     </div>
   );
