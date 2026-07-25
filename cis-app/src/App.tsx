@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import Hero from './components/Hero';
-import TabNav, { type TabKey } from './components/TabNav';
+import Hero, { type TabKey } from './components/Hero';
 import PortfolioAllocator from './components/allocator/PortfolioAllocator';
 import HowItWorksRE from './components/realestate/HowItWorksRE';
 import PropertyFinder from './components/realestate/PropertyFinder';
@@ -39,8 +38,7 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Hero />
-      <TabNav active={tab} onChange={setTab} />
+      <Hero active={tab} onChange={setTab} />
 
       <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-8 space-y-6">
         {tab === 'allocator' && (
