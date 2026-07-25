@@ -1,4 +1,4 @@
-export type TabKey = 'realestate' | 'funds';
+export type TabKey = 'allocator' | 'realestate' | 'funds';
 
 interface TabNavProps {
   active: TabKey;
@@ -6,6 +6,7 @@ interface TabNavProps {
 }
 
 const TABS: { key: TabKey; label: string }[] = [
+  { key: 'allocator', label: 'Portfolio Allocator' },
   { key: 'realestate', label: 'Real Estate' },
   { key: 'funds', label: 'ETFs & Mutual Funds' },
 ];

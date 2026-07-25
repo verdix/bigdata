@@ -1,14 +1,41 @@
 import { useState } from 'react';
 import Hero from './components/Hero';
 import TabNav, { type TabKey } from './components/TabNav';
+import PortfolioAllocator from './components/allocator/PortfolioAllocator';
 import HowItWorksRE from './components/realestate/HowItWorksRE';
 import PropertyFinder from './components/realestate/PropertyFinder';
 import PropertiesSection from './components/realestate/PropertiesSection';
 import HowItWorksFunds from './components/funds/HowItWorksFunds';
 import FundsGrid from './components/funds/FundsGrid';
+import type { FundInputs, PropertyInputs } from './types';
+import { blankProperty } from './lib/propertyDefaults';
+import { BASE_FUNDS } from './data/fundData';
 
 function App() {
-  const [tab, setTab] = useState<TabKey>('realestate');
+  const [tab, setTab] = useState<TabKey>('allocator');
+
+  const [properties, setProperties] = useState<PropertyInputs[]>(() => [
+    blankProperty('Property 1'),
+    blankProperty('Property 2'),
+  ]);
+  const [customFunds, setCustomFunds] = useState<FundInputs[]>([]);
+
+  function updateProperty(id: string, patch: Partial<PropertyInputs>) {
+    setProperties((prev) => prev.map((p) => (p.id === id ? { ...p, ...patch } : p)));
+  }
+  function removeProperty(id: string) {
+    setProperties((prev) => prev.filter((p) => p.id !== id));
+  }
+  function addProperty() {
+    setProperties((prev) => [...prev, blankProperty(`Property ${prev.length + 1}`)]);
+  }
+
+  function addCustomFund(fund: FundInputs) {
+    setCustomFunds((prev) => [...prev, fund]);
+  }
+  function removeCustomFund(id: string) {
+    setCustomFunds((prev) => prev.filter((f) => f.id !== id));
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -16,16 +43,29 @@ function App() {
       <TabNav active={tab} onChange={setTab} />
 
       <main className="flex-1 max-w-6xl mx-auto w-full px-6 py-8 space-y-6">
-        {tab === 'realestate' ? (
+        {tab === 'allocator' && (
+          <PortfolioAllocator properties={properties} funds={[...BASE_FUNDS, ...customFunds]} />
+        )}
+        {tab === 'realestate' && (
           <>
             <HowItWorksRE />
             <PropertyFinder />
-            <PropertiesSection />
+            <PropertiesSection
+              properties={properties}
+              onUpdate={updateProperty}
+              onRemove={removeProperty}
+              onAdd={addProperty}
+            />
           </>
-        ) : (
+        )}
+        {tab === 'funds' && (
           <>
             <HowItWorksFunds />
-            <FundsGrid />
+            <FundsGrid
+              customFunds={customFunds}
+              onAddCustomFund={addCustomFund}
+              onRemoveCustomFund={removeCustomFund}
+            />
           </>
         )}
       </main>

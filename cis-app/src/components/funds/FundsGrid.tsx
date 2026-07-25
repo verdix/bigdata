@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import type { FundInputs, Level } from '../../types';
-import { FUND_DATA, CATEGORY_LABELS } from '../../data/fundData';
+import { BASE_FUNDS, CATEGORY_LABELS } from '../../data/fundData';
 import { computeFundScore } from '../../lib/scoring';
 import { fmtPct } from '../../lib/format';
 import { exportToCsv } from '../../lib/csv';
@@ -9,8 +9,6 @@ import FundCard from './FundCard';
 import CustomFundForm from './CustomFundForm';
 import Leaderboard from '../Leaderboard';
 
-let nextId = 1;
-const BASE_FUNDS: FundInputs[] = FUND_DATA.map((f) => ({ ...f, id: `fund-${nextId++}` }));
 const RISK_ORDER: Record<Level, number> = { Low: 0, Medium: 1, High: 2 };
 
 const DEFAULT_FILTERS: FundFilters = {
@@ -20,8 +18,13 @@ const DEFAULT_FILTERS: FundFilters = {
   categories: [],
 };
 
-export default function FundsGrid() {
-  const [customFunds, setCustomFunds] = useState<FundInputs[]>([]);
+interface FundsGridProps {
+  customFunds: FundInputs[];
+  onAddCustomFund: (fund: FundInputs) => void;
+  onRemoveCustomFund: (id: string) => void;
+}
+
+export default function FundsGrid({ customFunds, onAddCustomFund, onRemoveCustomFund }: FundsGridProps) {
   const [filters, setFilters] = useState<FundFilters>(DEFAULT_FILTERS);
 
   const allFunds = useMemo(() => [...BASE_FUNDS, ...customFunds], [customFunds]);
@@ -35,10 +38,6 @@ export default function FundsGrid() {
       return true;
     });
   }, [allFunds, filters]);
-
-  function removeCustomFund(id: string) {
-    setCustomFunds((prev) => prev.filter((f) => f.id !== id));
-  }
 
   function handleExport() {
     const rows = filtered.map((f) => {
@@ -92,11 +91,11 @@ export default function FundsGrid() {
 
       <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-5">
         {filtered.map((f) => (
-          <FundCard key={f.id} fund={f} onRemove={removeCustomFund} />
+          <FundCard key={f.id} fund={f} onRemove={onRemoveCustomFund} />
         ))}
       </div>
 
-      <CustomFundForm onAdd={(fund) => setCustomFunds((prev) => [...prev, fund])} />
+      <CustomFundForm onAdd={onAddCustomFund} />
     </div>
   );
 }

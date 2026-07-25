@@ -25,6 +25,9 @@ export const FUND_DATA: Omit<FundInputs, 'id' | 'custom'>[] = [
   { ticker: 'VDIGX', name: 'Vanguard Dividend Growth Fund', category: 'balanced', yield: 1.7, expense: 0.29, growth: 'High', risk: 'Medium', frequency: 'Quarterly' },
 ];
 
+let nextFundId = 1;
+export const BASE_FUNDS: FundInputs[] = FUND_DATA.map((f) => ({ ...f, id: `fund-${nextFundId++}` }));
+
 export const CATEGORY_LABELS: Record<string, string> = {
   divgrowth: 'Dividend Growth',
   covered: 'Covered Call / High Income',

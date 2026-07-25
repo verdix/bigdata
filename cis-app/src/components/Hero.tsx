@@ -16,13 +16,13 @@ export default function Hero() {
           CIS · Cash Flow Investment System
         </div>
         <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-          Find your best cash-flowing investment,
-          <br className="hidden md:block" /> backed by the numbers.
+          Rental property or income fund? <br className="hidden md:block" />
+          Put a real number on your $50,000.
         </h1>
         <p className="max-w-2xl text-slate-300 leading-relaxed text-base md:text-lg mb-6">
-          One consistent, numbers-first scoring framework for rental properties and income
-          funds. Enter real numbers, get a weighted 0–100 score, and rank every candidate side
-          by side.
+          CIS is the only tool that scores rental properties and income funds on the same 0–100
+          scale, then tells you exactly which one wins for the capital you actually have — and
+          how to split the rest.
         </p>
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           {TRUST_ITEMS.map((item) => (

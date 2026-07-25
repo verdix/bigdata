@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { PropertyInputs } from '../../types';
 import { computeMetrics } from '../../lib/scoring';
 import { exportToCsv } from '../../lib/csv';
@@ -6,46 +5,14 @@ import { fmtMoney, fmtPct } from '../../lib/format';
 import PropertyCard from './PropertyCard';
 import Leaderboard from '../Leaderboard';
 
-let nextId = 1;
-function blankProperty(name: string): PropertyInputs {
-  return {
-    id: `prop-${nextId++}`,
-    name,
-    price: 250000,
-    downPct: 20,
-    rate: 7,
-    term: 30,
-    rent: 2200,
-    taxes: 300,
-    insurance: 100,
-    hoa: 0,
-    maintPct: 5,
-    mgmtPct: 8,
-    vacancyPct: 5,
-    other: 0,
-    closing: 6000,
-    rehab: 0,
-  };
+interface PropertiesSectionProps {
+  properties: PropertyInputs[];
+  onUpdate: (id: string, patch: Partial<PropertyInputs>) => void;
+  onRemove: (id: string) => void;
+  onAdd: () => void;
 }
 
-export default function PropertiesSection() {
-  const [properties, setProperties] = useState<PropertyInputs[]>(() => [
-    blankProperty('Property 1'),
-    blankProperty('Property 2'),
-  ]);
-
-  function updateProperty(id: string, patch: Partial<PropertyInputs>) {
-    setProperties((prev) => prev.map((p) => (p.id === id ? { ...p, ...patch } : p)));
-  }
-
-  function removeProperty(id: string) {
-    setProperties((prev) => prev.filter((p) => p.id !== id));
-  }
-
-  function addProperty() {
-    setProperties((prev) => [...prev, blankProperty(`Property ${prev.length + 1}`)]);
-  }
-
+export default function PropertiesSection({ properties, onUpdate, onRemove, onAdd }: PropertiesSectionProps) {
   function handleExport() {
     const rows = properties.map((p) => {
       const m = computeMetrics(p);
@@ -78,7 +45,7 @@ export default function PropertiesSection() {
         <h2 className="font-semibold text-navy text-lg">Your Properties</h2>
         <div className="flex gap-2">
           <button
-            onClick={addProperty}
+            onClick={onAdd}
             className="bg-navy text-white text-sm font-semibold px-4 py-2 rounded-lg hover:bg-navy-2 cursor-pointer"
           >
             + Add Property
@@ -108,7 +75,7 @@ export default function PropertiesSection() {
 
       <div className="grid lg:grid-cols-2 gap-5">
         {properties.map((p) => (
-          <PropertyCard key={p.id} property={p} onChange={updateProperty} onRemove={removeProperty} />
+          <PropertyCard key={p.id} property={p} onChange={onUpdate} onRemove={onRemove} />
         ))}
       </div>
     </div>

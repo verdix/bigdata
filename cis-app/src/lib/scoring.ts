@@ -12,7 +12,7 @@ export function interp(x: number, pts: [number, number][]): number {
 
 // ---------- Real Estate ----------
 
-const RE_CURVES = {
+export const RE_CURVES = {
   coc: [[-100, 0], [0, 15], [4, 45], [8, 75], [12, 95], [20, 100]] as [number, number][],
   cap: [[0, 0], [3, 30], [5, 55], [7, 80], [9, 95], [12, 100]] as [number, number][],
   dscr: [[0, 0], [1.0, 40], [1.25, 70], [1.5, 90], [1.75, 100]] as [number, number][],
@@ -101,7 +101,7 @@ export function computeMetrics(v: PropertyInputs): PropertyMetrics {
 
 // ---------- Funds ----------
 
-const FUND_CURVES = {
+export const FUND_CURVES = {
   yieldC: [[0, 0], [2, 30], [4, 55], [6, 75], [8, 88], [10, 96], [14, 100]] as [number, number][],
   expenseC: [[0, 100], [0.1, 95], [0.2, 85], [0.35, 70], [0.5, 55], [0.65, 40], [1.0, 15]] as [
     number,
